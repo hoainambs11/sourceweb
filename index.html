@@ -540,13 +540,13 @@
       if(!deleting){
         document.title=titleText.substring(0,idx+1);
         idx++;
-        if(idx===titleText.length){deleting=true;setTimeout(tick,2000);return}
-        setTimeout(tick,200);
+        if(idx===titleText.length){deleting=true;setTimeout(tick,600);return}
+        setTimeout(tick,180);
       }else{
         document.title=titleText.substring(0,idx-1);
         idx--;
-        if(idx===0){deleting=false;setTimeout(tick,500);return}
-        setTimeout(tick,80);
+        if(idx===0){deleting=false;setTimeout(tick,150);return}
+        setTimeout(tick,60);
       }
     }
     tick();
