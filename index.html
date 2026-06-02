@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hoài Nam</title>
+<title>@hoainam</title>
+<link rel="icon" type="image/jpeg" href="avatar.jpg">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
@@ -236,22 +237,18 @@
 </head>
 <body class="profile-body-4">
 
-<!-- STARFIELD -->
 <div class="stars-bg">
   <div class="stars-1" id="stars1"></div>
   <div class="stars-2" id="stars2"></div>
   <div class="stars-3" id="stars3"></div>
 </div>
 
-<!-- OVERLAY AUDIO -->
 <div class="overlay-audio" id="overlayAudio" onclick="hideOverlay()">
   <p class="text">𝜗ৎ</p>
 </div>
 
-<!-- SPARKLE CURSOR CANVAS -->
 <canvas id="particleCanvas"></canvas>
 
-<!-- TOP-LEFT BUTTONS -->
 <div class="revealAudioLike" id="revealAudioLike">
   <div class="audio_control" id="audioControl">
     <svg class="volumeIcon" id="volumeIcon" onclick="event.stopPropagation();toggleMute()" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48"><defs><mask id="volMask"><g fill="none" stroke="#fff" stroke-width="4"><path fill="#555" stroke-linejoin="round" d="M24 6v36c-7 0-12.201-9.16-12.201-9.16H6a2 2 0 0 1-2-2V17.01a2 2 0 0 1 2-2h5.799S17 6 24 6Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M32 15a12 12 0 0 1 1.684 1.859A12.07 12.07 0 0 1 36 24c0 2.654-.846 5.107-2.278 7.09A12 12 0 0 1 32 33"/><path stroke-linecap="round" d="M34.236 41.186C40.084 37.696 44 31.305 44 24c0-7.192-3.796-13.496-9.493-17.02"/></g></mask></defs><path fill="currentColor" d="M0 0h48v48H0z" mask="url(#volMask)"/></svg>
@@ -264,12 +261,10 @@
   </label>
 </div>
 
-<!-- BIO CONTAINER -->
 <div class="bio-container">
   <div class="bio_content_container" style="display:flex;flex-direction:column">
 
-    <!-- BOTTOM-LEFT INFO -->
-    <div class="info_container" id="bottomInfo">
+        <div class="info_container" id="bottomInfo">
       <div class="bio_infomation">
         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M12 9a3 3 0 0 0-3 3a3 3 0 0 0 3 3a3 3 0 0 0 3-3a3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5a5 5 0 0 1 5-5a5 5 0 0 1 5 5a5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5"/></svg>
         <p class="text" id="viewCountText">0</p>
@@ -280,8 +275,7 @@
       </div>
     </div>
 
-    <!-- SCREEN 1: HERO -->
-    <div class="screen_1">
+        <div class="screen_1">
       <div class="main_content">
         <div class="img_container">
           <img class="img_effect" src="https://r2.zyo.lol/decoration/spirit_embers.png" style="filter:hue-rotate(260deg)">
@@ -290,7 +284,6 @@
 
         <p class="header" id="userName">hoainam</p>
 
-        <!-- CURSOR BLINK STYLE -->
         <style>
           #userName::after{content:'|';animation:blink 0.7s infinite;color:#fff;opacity:0.7}
           @keyframes blink{0%,100%{opacity:0.7}50%{opacity:0}}
@@ -323,8 +316,7 @@
       </div>
     </div>
 
-    <!-- SCREEN 2: ABOUT + AUDIO -->
-    <div class="screen_2">
+        <div class="screen_2">
       <div class="main_content">
         <h1 class="header">About Me</h1>
         <div class="description_container css_content_container">
@@ -538,7 +530,27 @@
   if(!sessionStorage.getItem(ST+'session')){viewCount++;localStorage.setItem(ST+'viewCount',viewCount);sessionStorage.setItem(ST+'session','1')}
   document.getElementById('viewCountText').textContent=fmtNum(viewCount);
 
-  console.log('%c✨ Hoài Nam %cReady','color:#ff00c1;font-size:16px','color:#00fff9');
+  console.log('%c✨ @hoainam %cReady','color:#ff00c1;font-size:16px','color:#00fff9');
+
+  // ===== TAB TITLE TYPEWRITER =====
+  (function(){
+    const titleText='@hoainam';
+    let idx=0,deleting=false;
+    function tick(){
+      if(!deleting){
+        document.title=titleText.substring(0,idx+1);
+        idx++;
+        if(idx===titleText.length){deleting=true;setTimeout(tick,2000);return}
+        setTimeout(tick,200);
+      }else{
+        document.title=titleText.substring(0,idx-1);
+        idx--;
+        if(idx===0){deleting=false;setTimeout(tick,500);return}
+        setTimeout(tick,80);
+      }
+    }
+    tick();
+  })();
 })();
 </script>
 </body>
