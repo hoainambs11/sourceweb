@@ -533,24 +533,19 @@
   console.log('%c✨ @hoainam %cReady','color:#ff00c1;font-size:16px','color:#00fff9');
 
   // ===== TAB TITLE TYPEWRITER =====
-  (function(){
-    const titleText='@hoainam';
-    let idx=0,deleting=false;
-    function tick(){
-      if(!deleting){
-        document.title=titleText.substring(0,idx+1);
-        idx++;
-        if(idx===titleText.length){deleting=true;setTimeout(tick,600);return}
-        setTimeout(tick,180);
-      }else{
-        document.title=titleText.substring(0,idx-1);
-        idx--;
-        if(idx===0){deleting=false;setTimeout(tick,150);return}
-        setTimeout(tick,60);
-      }
+  const titleText='@hoainam';
+  let tIdx=0,tDel=false;
+  setInterval(()=>{
+    if(!tDel){
+      document.title=titleText.substring(0,tIdx+1);
+      tIdx++;
+      if(tIdx>=titleText.length)tDel=true;
+    }else{
+      document.title=titleText.substring(0,tIdx-1)||'@';
+      tIdx--;
+      if(tIdx<=0)tDel=false;
     }
-    tick();
-  })();
+  },80);
 })();
 </script>
 </body>
