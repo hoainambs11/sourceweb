@@ -58,7 +58,8 @@
   .audio_control:hover{width:180px;padding-right:25px}
   .audio_control .volumeIcon{font-size:2.8rem;color:#fff;flex-shrink:0}
   .audio_control.muted .volumeIcon{color:#666}
-  .slider-container{position:relative;width:100%}
+  .slider-container{position:relative;width:100%;opacity:0;transition:opacity .3s}
+  .audio_control:hover .slider-container{opacity:1}
   .vol-slider{
     -webkit-appearance:none;appearance:none;width:100%;height:6px;
     background:rgba(255,255,255,.15);border-radius:6px;outline:none;cursor:pointer;
@@ -327,7 +328,7 @@
       <div class="main_content">
         <h1 class="header">About Me</h1>
         <div class="description_container css_content_container">
-          <p class="description" id="bioDesc">iu xie ❤️</p>
+          <p class="description" id="bioDesc">iu xie</p>
         </div>
 
         <div class="audio_container css_content_container">
@@ -429,6 +430,7 @@
   audio.crossOrigin='anonymous';
   audio.src='music.mp3';
   audio.volume=1;
+  audio.loop=true;
   let playing=false,loaded=false,seeking=false,started=false;
 
   function fmt(s){if(isNaN(s)||s===Infinity)return'0:00';const m=~~(s/60);return m+':'+String(~~(s%60)).padStart(2,'0')}
