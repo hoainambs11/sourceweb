@@ -76,7 +76,7 @@
 
   .bio-container{
     width:100%;max-width:1000px;margin:auto;
-    position:relative;z-index:1;
+    position:relative;
   }
   @media(max-width:768px){.bio-container{width:95vw}}
 
@@ -114,12 +114,9 @@
     position:relative;z-index:2;
   }
   .img_effect{
-    position:absolute;width:118%;top:50%;left:50%;
-    transform:translate(-50%,-50%);z-index:1;
-    animation:glowSpin 5s linear infinite;
-    aspect-ratio:1;
+    position:absolute;width:125%;height:125%;top:50%;left:50%;
+    transform:translate(-50%,-50%);z-index:3;pointer-events:none;
   }
-  @keyframes glowSpin{to{transform:translate(-50%,-50%) rotate(360deg)}}
 
   .screen_1 .header{
     font-size:3.6rem;font-weight:600;color:#fff;
@@ -207,7 +204,7 @@
   .hidden-input{display:none}
 
   #particleCanvas{
-    position:fixed;inset:0;z-index:2;pointer-events:none;
+    display:block;width:100%;height:100%;
   }
 
   @media(max-width:520px){
@@ -230,12 +227,9 @@
   <div class="stars-3" id="stars3"></div>
 </div>
 
-<div class="overlay-audio" id="overlayAudio" onclick="hideOverlay()">
+<div class="overlay-audio" id="overlayAudio" onclick="window.hideOverlay()">
   <p class="text">𝜗ৎ</p>
 </div>
-
-<canvas id="particleCanvas"></canvas>
-
 <div class="revealAudioLike" id="revealAudioLike">
   <div class="audio_control" id="audioControl">
     <svg class="volumeIcon" id="volumeIcon" onclick="event.stopPropagation();toggleMute()" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48"><defs><mask id="volMask"><g fill="none" stroke="#fff" stroke-width="4"><path fill="#555" stroke-linejoin="round" d="M24 6v36c-7 0-12.201-9.16-12.201-9.16H6a2 2 0 0 1-2-2V17.01a2 2 0 0 1 2-2h5.799S17 6 24 6Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M32 15a12 12 0 0 1 1.684 1.859A12.07 12.07 0 0 1 36 24c0 2.654-.846 5.107-2.278 7.09A12 12 0 0 1 32 33"/><path stroke-linecap="round" d="M34.236 41.186C40.084 37.696 44 31.305 44 24c0-7.192-3.796-13.496-9.493-17.02"/></g></mask></defs><path fill="currentColor" d="M0 0h48v48H0z" mask="url(#volMask)"/></svg>
@@ -265,7 +259,7 @@
         <div class="screen_1">
       <div class="main_content">
         <div class="img_container">
-          <img class="img_effect" src="https://r2.zyo.lol/decoration/spirit_embers.png" style="filter:hue-rotate(260deg)">
+          <img class="img_effect" src="animated">
           <img src="avatar.jpg" alt="Avatar" class="img" id="avatarImg">
         </div>
 
@@ -341,6 +335,10 @@
 </div>
 
 <input type="file" accept="audio/*" class="hidden-input" id="audioFileInput">
+
+<div style="position:fixed;inset:0;z-index:9998;pointer-events:none;">
+<canvas id="particleCanvas" style="display:block;width:100%;height:100%;"></canvas>
+</div>
 
 <script>
 (function(){
