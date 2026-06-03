@@ -18,7 +18,6 @@
   }
   ::selection{background:#fff;color:#010101}
 
-  /* ===== PROFILE BODY 4 ===== */
   .profile-body-4{
     overflow:hidden;overflow-y:auto;height:100vh;width:100vw;display:flex;
   }
@@ -26,7 +25,6 @@
   .profile-body-4::-webkit-scrollbar-track{background:#0a0a0a}
   .profile-body-4::-webkit-scrollbar-thumb{background:#2e2e2e;border-radius:15px}
 
-  /* ===== STARFIELD ===== */
   .stars-bg{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
   .stars-1,.stars-2,.stars-3{position:absolute;animation:starFall linear infinite}
   .stars-1{width:1px;height:1px;animation-duration:50s;box-shadow:var(--s1)}
@@ -34,7 +32,6 @@
   .stars-3{width:3px;height:3px;animation-duration:150s;box-shadow:var(--s3)}
   @keyframes starFall{from{transform:translateY(0)}to{transform:translateY(-2000px)}}
 
-  /* ===== OVERLAY AUDIO ===== */
   .overlay-audio{
     position:fixed;inset:0;z-index:9999;
     background:#000;
@@ -43,7 +40,6 @@
   .overlay-audio .text{font-size:4rem;color:#fff;font-weight:400;user-select:none}
   .overlay-audio.hidden{opacity:0;pointer-events:none;transition:opacity .3s}
 
-  /* ===== TOP-LEFT REVEAL BUTTONS ===== */
   .revealAudioLike{
     display:flex;align-items:center;gap:8px;
     position:fixed;top:15px;left:15px;z-index:5;
@@ -77,14 +73,12 @@
   .like_button .likeIcon{font-size:2.8rem;color:#fff}
   .like_button.liked .likeIcon{color:#c50b2b}
 
-  /* ===== BIO CONTAINER ===== */
   .bio-container{
     width:100%;max-width:1000px;margin:auto;
     position:relative;z-index:1;
   }
   @media(max-width:768px){.bio-container{width:95vw}}
 
-  /* ===== CSS CONTENT CARD ===== */
   .css_content_container{
     backdrop-filter:blur(0px);-webkit-backdrop-filter:blur(0px);
     background:rgba(255,255,255,0);
@@ -94,7 +88,6 @@
     width:100%;
   }
 
-  /* ===== BOTTOM-LEFT INFO ===== */
   .info_container{
     display:flex;align-items:center;gap:8px;
     position:fixed;bottom:15px;left:20px;z-index:50;
@@ -106,7 +99,6 @@
   .bio_infomation svg{font-size:2rem;color:#fff}
   .bio_infomation .text{font-size:1.4rem;color:#fff}
 
-  /* ===== SCREEN 1 (hero) ===== */
   .screen_1{position:relative}
   .screen_1 .main_content{
     display:flex;min-height:100svh;
@@ -134,7 +126,6 @@
     margin-top:15px;line-height:1.3em;
   }
 
-  /* ===== BADGES ===== */
   .badge_container{
     display:flex;align-items:center;gap:8px;margin-top:12px;
     background:rgba(255,255,255,.2);border:2px solid rgba(255,255,255,.1);
@@ -142,7 +133,6 @@
   }
   .badge_container svg{font-size:2rem;color:#fff;filter:drop-shadow(0 0 6px #fff)}
 
-  /* ===== SVG SOCIAL ===== */
   .svg_container{
     display:flex;flex-wrap:wrap;align-items:center;justify-content:center;
     width:100%;margin-top:18px;gap:4px;
@@ -157,7 +147,6 @@
   .svg_item:hover{transform:scale(1.1)}
   .svg_item svg{width:36px;height:36px}
 
-  /* ===== SUGGEST (scroll hint) ===== */
   .suggest{
     display:flex;align-items:center;flex-direction:column;
     position:absolute;bottom:20px;left:50%;transform:translateX(-50%);
@@ -171,7 +160,6 @@
     50%{animation-timing-function:cubic-bezier(0,0,.2,1);transform:translateX(-50%)}
   }
 
-  /* ===== SCREEN 2 (about) ===== */
   .screen_2{position:relative}
   .screen_2 .main_content{
     display:flex;min-height:100svh;
@@ -191,7 +179,6 @@
     text-shadow:0 0 16.5px #fff;
   }
 
-  /* ===== AUDIO CONTAINER ===== */
   .audio_container{
     display:flex;align-items:center;gap:10px;padding:15px;
   }
@@ -218,7 +205,6 @@
 
   .hidden-input{display:none}
 
-  /* ===== SPARKLE CURSOR CANVAS ===== */
   #particleCanvas{
     position:fixed;inset:0;z-index:2;pointer-events:none;
   }
@@ -357,14 +343,12 @@
 
 <script>
 (function(){
-  // ===== STARFIELD =====
   function gen(n,w,h){const a=[];for(let i=0;i<n;i++)a.push(`${~~(Math.random()*w)}px ${~~(Math.random()*h)}px #fff`);return a.join(',')}
   const W=2000,H=2000;
   document.querySelector('.stars-1').style.setProperty('--s1',gen(350,W,H));
   document.querySelector('.stars-2').style.setProperty('--s2',gen(150,W,H));
   document.querySelector('.stars-3').style.setProperty('--s3',gen(70,W,H));
 
-  // ===== SPARKLE CURSOR (giống zyo.lol) =====
   (function(){
     const canvas=document.getElementById('particleCanvas');
     const ctx=canvas.getContext('2d');
@@ -416,7 +400,6 @@
     document.addEventListener('touchend',()=>{mouse.x=null;mouse.y=null});
   })();
 
-  // ===== OVERLAY =====
   const overlay=document.getElementById('overlayAudio');
   const audio=new Audio();
   audio.crossOrigin='anonymous';
@@ -444,7 +427,6 @@
   audio.addEventListener('timeupdate',()=>{if(!seeking&&audio.duration){document.getElementById('audioSlider').value=audio.currentTime;document.getElementById('currentTime').textContent=fmt(audio.currentTime)}});
   audio.addEventListener('ended',()=>{playing=false;updatePlayBtn()});
 
-  // ===== VOLUME =====
   const volSlider=document.getElementById('volSlider');
   volSlider.addEventListener('input',()=>{audio.volume=volSlider.value/100;updateVolIcon(volSlider.value==0)});
   window.toggleMute=function(){
@@ -452,14 +434,12 @@
     else{audio.volume=1;volSlider.value=100;updateVolIcon(false)}
   };
 
-  // ===== PLAY/PAUSE =====
   document.getElementById('playPause').addEventListener('click',()=>{
     if(!loaded)return;
     if(playing){audio.pause()}else{audio.play().catch(()=>{})}
     playing=!playing;updatePlayBtn();
   });
 
-  // ===== SEEK =====
   const seekSlider=document.getElementById('audioSlider');
   seekSlider.addEventListener('input',()=>{seeking=true;document.getElementById('currentTime').textContent=fmt(parseFloat(seekSlider.value))});
   seekSlider.addEventListener('change',()=>{audio.currentTime=parseFloat(seekSlider.value);seeking=false});
@@ -467,14 +447,12 @@
   document.getElementById('backward').addEventListener('click',()=>{audio.currentTime=Math.max(0,audio.currentTime-5)});
   document.getElementById('forward').addEventListener('click',()=>{audio.currentTime=Math.min(audio.duration||0,audio.currentTime+5)});
 
-  // Keyboard controls
   document.addEventListener('keydown',e=>{
     if(e.code==='Space'){e.preventDefault();document.getElementById('playPause').click()}
     if(e.code==='ArrowLeft'){audio.currentTime-=5}
     if(e.code==='ArrowRight'){audio.currentTime+=5}
   });
 
-  // ===== UPLOAD AUDIO =====
   document.getElementById('audioFileInput').addEventListener('change',function(e){
     const f=e.target.files[0];if(!f)return;
     const was=playing;audio.pause();audio.src=URL.createObjectURL(f);
@@ -485,7 +463,6 @@
     if(was){audio.addEventListener('loadeddata',()=>{audio.play().catch(()=>{});playing=true;updatePlayBtn()},{once:true})}
   });
 
-  // ===== TYPEWRITER CYCLING NAME =====
   (function(){
     const nameEl=document.getElementById('userName');
     const names=['hoainam','xie'];
@@ -507,7 +484,6 @@
     tick();
   })();
 
-  // ===== LIKE =====
   const ST='hoainam_v6_';
   let liked=localStorage.getItem(ST+'liked')==='true';
   let likeCount=parseInt(localStorage.getItem(ST+'likeCount')||'1000000')||1000000;
@@ -525,14 +501,12 @@
     updateAllLikes();
   };
 
-  // ===== VIEWS =====
   let viewCount=parseInt(localStorage.getItem(ST+'viewCount')||'1000000')||1000000;
   if(!sessionStorage.getItem(ST+'session')){viewCount++;localStorage.setItem(ST+'viewCount',viewCount);sessionStorage.setItem(ST+'session','1')}
   document.getElementById('viewCountText').textContent=fmtNum(viewCount);
 
   console.log('%c✨ @hoainam %cReady','color:#ff00c1;font-size:16px','color:#00fff9');
 
-  // ===== TAB TITLE TYPEWRITER =====
   const titleText='@hoainam';
   let tIdx=0,tDel=false;
   setInterval(()=>{
