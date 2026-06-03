@@ -15,6 +15,7 @@
     background:#000;
     color:#fff;
     user-select:none;
+    cursor:none;
   }
   ::selection{background:#fff;color:#010101}
 
@@ -350,43 +351,43 @@
   document.querySelector('.stars-3').style.setProperty('--s3',gen(70,W,H));
 
   (function(){
+    const CONFIG={trailLength:22,smoothness:0.18,thickness:3,opacity:0.85,glowStrength:12};
     const canvas=document.getElementById('particleCanvas');
     const ctx=canvas.getContext('2d');
     let w,h;
-    const N=25;
     const dots=[];
-    const mouse={x:0,y:0};
+    const mouse={x:-100,y:-100,tx:-100,ty:-100};
 
     function resize(){w=canvas.width=window.innerWidth;h=canvas.height=window.innerHeight}
     resize();window.addEventListener('resize',resize);
 
-    for(let i=0;i<N;i++)dots.push({x:0,y:0,vx:0,vy:0,r:3-i*0.1});
+    for(let i=0;i<CONFIG.trailLength;i++)dots.push({x:0,y:0});
 
     function animate(){
       ctx.clearRect(0,0,w,h);
+      mouse.x+=(mouse.tx-mouse.x)*CONFIG.smoothness;
+      mouse.y+=(mouse.ty-mouse.y)*CONFIG.smoothness;
       let px=mouse.x,py=mouse.y;
-      for(let i=0;i<N;i++){
+      for(let i=0;i<CONFIG.trailLength;i++){
         const d=dots[i];
         const tx=i===0?px:dots[i-1].x;
         const ty=i===0?py:dots[i-1].y;
-        d.vx+=(tx-d.x)*0.15;
-        d.vy+=(ty-d.y)*0.15;
-        d.vx*=0.75;
-        d.vy*=0.75;
-        d.x+=d.vx;
-        d.y+=d.vy;
-        const alpha=1-i/N;
-        const size=Math.max(0.5,d.r*(1-i/N*0.7));
-        ctx.beginPath();
-        ctx.arc(d.x,d.y,size,0,Math.PI*2);
-        ctx.fillStyle=`rgba(255,255,255,${alpha*0.8})`;
-        ctx.fill();
+        d.x+=(tx-d.x)*(0.08+i*0.02);
+        d.y+=(ty-d.y)*(0.08+i*0.02);
+        const alpha=(1-i/CONFIG.trailLength)*CONFIG.opacity;
+        const r=CONFIG.thickness*(1-i/CONFIG.trailLength*0.85);
+        if(r>0.3){
+          ctx.beginPath();ctx.arc(d.x,d.y,r,0,Math.PI*2);
+          ctx.fillStyle=`rgba(255,255,255,${alpha})`;
+          ctx.shadowColor=`rgba(255,255,255,${alpha*0.7})`;
+          ctx.shadowBlur=CONFIG.glowStrength*(1-i/CONFIG.trailLength);
+          ctx.fill();
+          ctx.shadowBlur=0;
+        }
         if(i>0){
-          ctx.beginPath();
-          ctx.moveTo(d.x,d.y);
-          ctx.lineTo(dots[i-1].x,dots[i-1].y);
-          ctx.strokeStyle=`rgba(255,255,255,${alpha*0.4})`;
-          ctx.lineWidth=Math.max(0.3,2-i/N*1.5);
+          ctx.beginPath();ctx.moveTo(d.x,d.y);ctx.lineTo(dots[i-1].x,dots[i-1].y);
+          ctx.strokeStyle=`rgba(255,255,255,${alpha*0.5})`;
+          ctx.lineWidth=Math.max(0.3,CONFIG.thickness*0.7*(1-i/CONFIG.trailLength));
           ctx.stroke();
         }
       }
@@ -394,8 +395,8 @@
     }
     animate();
 
-    document.addEventListener('mousemove',e=>{mouse.x=e.clientX;mouse.y=e.clientY});
-    document.addEventListener('touchmove',e=>{mouse.x=e.touches[0].clientX;mouse.y=e.touches[0].clientY},{passive:true});
+    document.addEventListener('mousemove',e=>{mouse.tx=e.clientX;mouse.ty=e.clientY});
+    document.addEventListener('touchmove',e=>{mouse.tx=e.touches[0].clientX;mouse.ty=e.touches[0].clientY},{passive:true});
   })();
 
   const overlay=document.getElementById('overlayAudio');
